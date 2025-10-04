@@ -1,1 +1,20 @@
-./data/
+# OLD: ./data/
+# NEW: More comprehensive data file exclusions
+data/
+*.tar.gz
+*.zip
+*.pth
+*.pkl
+*.h5
+*.hdf5
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.env
+.DS_Store
+*.log
