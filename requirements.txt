@@ -1,0 +1,22 @@
+# Core PyTorch packages
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Data augmentation and processing
+albumentations>=1.3.0
+numpy>=1.21.0
+
+# Visualization and progress tracking
+matplotlib>=3.5.0
+tqdm>=4.64.0
+
+# Model analysis and debugging
+torchsummary>=1.5.1
+
+# Additional dependencies for CIFAR-10 training
+Pillow>=9.0.0
+opencv-python>=4.5.0
+
+# Optional: For better performance on Apple Silicon
+# Uncomment if you want to use accelerate for optimization
+# accelerate>=0.20.0
