@@ -155,6 +155,7 @@ std = [0.2023, 0.1994, 0.2010]
 - **Target Accuracy**: 85%
 - **Loss Function**: CrossEntropyLoss
 - **Device Support**: CUDA, MPS (Apple Silicon), CPU
+- **Training Device**: Apple Silicon GPU (MPS) - Successfully trained on Apple GPU using PyTorch MPS backend
 
 ### Regularization:
 - **Dropout**: 0.1 throughout the network
@@ -207,6 +208,22 @@ The code automatically detects and uses the best available device:
 - **CUDA**: NVIDIA GPUs
 - **MPS**: Apple Silicon (M1/M2/M3) Macs
 - **CPU**: Fallback for all systems
+
+### 3. Apple GPU Training with MPS
+This model was successfully trained on Apple Silicon GPU using PyTorch's Metal Performance Shaders (MPS) backend:
+
+- **Hardware**: Apple Silicon Mac (M1/M2/M3)
+- **Backend**: PyTorch MPS (Metal Performance Shaders)
+- **Performance**: Significantly faster than CPU training
+- **Memory**: Efficient GPU memory utilization
+- **Compatibility**: Native Apple GPU acceleration
+- **Training Time**: ~45 minutes for 42 epochs
+- **Memory Usage**: ~4GB RAM with GPU acceleration
+
+**MPS Configuration Notes**:
+- Automatic device detection: `torch.device('mps' if torch.backends.mps.is_available() else 'cpu')`
+- Optimized data loading: `num_workers=0` for MPS compatibility
+- Memory management: Efficient tensor operations on Apple GPU
 
 ## 🎮 Usage
 
@@ -367,46 +384,86 @@ Estimated Total Size (MB): 5.39
 ```
 
 ### Actual Training Logs:
-The model was successfully trained on Apple Silicon (MPS) and achieved the target accuracy of 85% in just 42 epochs:
+The model was successfully trained on Apple Silicon GPU using PyTorch MPS backend and achieved the target accuracy of 85% in just 42 epochs:
 
 ```
 🚀 Training for 50 epochs on mps
 ============================================================
-✅ New best model at epoch 1 (32.26%)
+✅ New best model at epoch 1 (32.26%)                                                                                                                                                                                                                                                                                                                                                         
 📊 Epoch 001/50 | Train Loss: 1.8813, Train Acc: 25.78% | Val Loss: 1.7177, Val Acc: 32.26% | LR: 0.001000
-
-✅ New best model at epoch 2 (46.11%)
+✅ New best model at epoch 2 (46.11%)                                                                                                                                                                                                                                                                                                                                                         
 📊 Epoch 002/50 | Train Loss: 1.5832, Train Acc: 39.56% | Val Loss: 1.4527, Val Acc: 46.11% | LR: 0.001000
-
-✅ New best model at epoch 3 (54.56%)
+✅ New best model at epoch 3 (54.56%)                                                                                                                                                                                                                                                                                                                                                         
 📊 Epoch 003/50 | Train Loss: 1.3814, Train Acc: 48.72% | Val Loss: 1.2208, Val Acc: 54.56% | LR: 0.001000
-
-✅ New best model at epoch 4 (61.40%)
+✅ New best model at epoch 4 (61.40%)                                                                                                                                                                                                                                                                                                                                                         
 📊 Epoch 004/50 | Train Loss: 1.2427, Train Acc: 54.84% | Val Loss: 1.0663, Val Acc: 61.40% | LR: 0.001000
-
-✅ New best model at epoch 5 (64.15%)
+✅ New best model at epoch 5 (64.15%)                                                                                                                                                                                                                                                                                                                                                         
 📊 Epoch 005/50 | Train Loss: 1.1446, Train Acc: 58.63% | Val Loss: 0.9905, Val Acc: 64.15% | LR: 0.001000
-
-... [continuing improvement] ...
-
-✅ New best model at epoch 20 (80.21%)
+✅ New best model at epoch 6 (66.39%)                                                                                                                                                                                                                                                                                                                                                         
+📊 Epoch 006/50 | Train Loss: 1.0736, Train Acc: 61.46% | Val Loss: 0.9528, Val Acc: 66.39% | LR: 0.001000
+✅ New best model at epoch 7 (67.97%)                                                                                                                                                                                                                                                                                                                                                         
+📊 Epoch 007/50 | Train Loss: 1.0200, Train Acc: 63.46% | Val Loss: 0.8869, Val Acc: 67.97% | LR: 0.001000
+✅ New best model at epoch 8 (69.02%)                                                                                                                                                                                                                                                                                                                                                         
+📊 Epoch 008/50 | Train Loss: 0.9749, Train Acc: 65.30% | Val Loss: 0.8757, Val Acc: 69.02% | LR: 0.001000
+✅ New best model at epoch 9 (69.73%)                                                                                                                                                                                                                                                                                                                                                         
+📊 Epoch 009/50 | Train Loss: 0.9290, Train Acc: 67.31% | Val Loss: 0.8706, Val Acc: 69.73% | LR: 0.001000
+✅ New best model at epoch 10 (71.97%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 010/50 | Train Loss: 0.8996, Train Acc: 68.67% | Val Loss: 0.7997, Val Acc: 71.97% | LR: 0.001000
+✅ New best model at epoch 11 (74.15%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 011/50 | Train Loss: 0.8625, Train Acc: 69.90% | Val Loss: 0.7466, Val Acc: 74.15% | LR: 0.001000
+✅ New best model at epoch 12 (74.21%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 012/50 | Train Loss: 0.8463, Train Acc: 70.60% | Val Loss: 0.7475, Val Acc: 74.21% | LR: 0.001000
+✅ New best model at epoch 13 (75.64%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 013/50 | Train Loss: 0.8220, Train Acc: 71.23% | Val Loss: 0.7152, Val Acc: 75.64% | LR: 0.001000
+✅ New best model at epoch 14 (77.53%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 014/50 | Train Loss: 0.7984, Train Acc: 72.23% | Val Loss: 0.6604, Val Acc: 77.53% | LR: 0.001000
+✅ New best model at epoch 15 (77.88%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 015/50 | Train Loss: 0.7860, Train Acc: 72.66% | Val Loss: 0.6455, Val Acc: 77.88% | LR: 0.001000
+📊 Epoch 016/50 | Train Loss: 0.7673, Train Acc: 73.60% | Val Loss: 0.6535, Val Acc: 77.53% | LR: 0.001000                                                                                                                                                                                                                                                                                    
+✅ New best model at epoch 17 (78.81%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 017/50 | Train Loss: 0.7551, Train Acc: 73.92% | Val Loss: 0.6270, Val Acc: 78.81% | LR: 0.001000
+📊 Epoch 018/50 | Train Loss: 0.7354, Train Acc: 74.78% | Val Loss: 0.6587, Val Acc: 77.45% | LR: 0.001000                                                                                                                                                                                                                                                                                    
+✅ New best model at epoch 19 (79.05%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 019/50 | Train Loss: 0.7246, Train Acc: 75.05% | Val Loss: 0.6003, Val Acc: 79.05% | LR: 0.001000
+✅ New best model at epoch 20 (80.21%)                                                                                                                                                                                                                                                                                                                                                        
 📊 Epoch 020/50 | Train Loss: 0.7164, Train Acc: 75.33% | Val Loss: 0.5951, Val Acc: 80.21% | LR: 0.001000
-
-... [learning rate reduction at epoch 28] ...
-
-📊 Epoch 028/50 | Train Loss: 0.6528, Train Acc: 77.43% | Val Loss: 0.6115, Val Acc: 79.37% | LR: 0.000500
-
-✅ New best model at epoch 29 (83.37%)
+📊 Epoch 021/50 | Train Loss: 0.6997, Train Acc: 75.81% | Val Loss: 0.5990, Val Acc: 79.52% | LR: 0.001000                                                                                                                                                                                                                                                                                    
+✅ New best model at epoch 22 (80.78%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 022/50 | Train Loss: 0.6987, Train Acc: 75.99% | Val Loss: 0.5662, Val Acc: 80.78% | LR: 0.001000
+📊 Epoch 023/50 | Train Loss: 0.6883, Train Acc: 76.40% | Val Loss: 0.5886, Val Acc: 80.36% | LR: 0.001000                                                                                                                                                                                                                                                                                    
+📊 Epoch 024/50 | Train Loss: 0.6869, Train Acc: 76.38% | Val Loss: 0.5855, Val Acc: 80.31% | LR: 0.001000                                                                                                                                                                                                                                                                                    
+✅ New best model at epoch 25 (81.71%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 025/50 | Train Loss: 0.6672, Train Acc: 76.66% | Val Loss: 0.5496, Val Acc: 81.71% | LR: 0.001000
+📊 Epoch 026/50 | Train Loss: 0.6595, Train Acc: 77.18% | Val Loss: 0.5586, Val Acc: 81.35% | LR: 0.001000                                                                                                                                                                                                                                                                                    
+📊 Epoch 027/50 | Train Loss: 0.6516, Train Acc: 77.43% | Val Loss: 0.5530, Val Acc: 81.32% | LR: 0.001000                                                                                                                                                                                                                                                                                    
+📊 Epoch 028/50 | Train Loss: 0.6528, Train Acc: 77.43% | Val Loss: 0.6115, Val Acc: 79.37% | LR: 0.000500                                                                                                                                                                                                                                                                                    
+✅ New best model at epoch 29 (83.37%)                                                                                                                                                                                                                                                                                                                                                        
 📊 Epoch 029/50 | Train Loss: 0.6067, Train Acc: 79.09% | Val Loss: 0.5086, Val Acc: 83.37% | LR: 0.000500
-
-... [second learning rate reduction at epoch 35] ...
-
-📊 Epoch 035/50 | Train Loss: 0.5717, Train Acc: 80.49% | Val Loss: 0.4819, Val Acc: 83.83% | LR: 0.000250
-
-✅ New best model at epoch 42 (85.21%)
+✅ New best model at epoch 30 (83.40%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 030/50 | Train Loss: 0.5981, Train Acc: 79.34% | Val Loss: 0.4915, Val Acc: 83.40% | LR: 0.000500
+✅ New best model at epoch 31 (83.59%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 031/50 | Train Loss: 0.5935, Train Acc: 79.42% | Val Loss: 0.4829, Val Acc: 83.59% | LR: 0.000500
+✅ New best model at epoch 32 (84.02%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 032/50 | Train Loss: 0.5855, Train Acc: 79.76% | Val Loss: 0.4752, Val Acc: 84.02% | LR: 0.000500
+📊 Epoch 033/50 | Train Loss: 0.5803, Train Acc: 80.03% | Val Loss: 0.4818, Val Acc: 83.36% | LR: 0.000500                                                                                                                                                                                                                                                                                    
+📊 Epoch 034/50 | Train Loss: 0.5796, Train Acc: 80.13% | Val Loss: 0.4803, Val Acc: 83.81% | LR: 0.000500                                                                                                                                                                                                                                                                                    
+📊 Epoch 035/50 | Train Loss: 0.5717, Train Acc: 80.49% | Val Loss: 0.4819, Val Acc: 83.83% | LR: 0.000250                                                                                                                                                                                                                                                                                    
+✅ New best model at epoch 36 (84.53%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 036/50 | Train Loss: 0.5548, Train Acc: 80.89% | Val Loss: 0.4614, Val Acc: 84.53% | LR: 0.000250
+✅ New best model at epoch 37 (84.59%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 037/50 | Train Loss: 0.5459, Train Acc: 81.02% | Val Loss: 0.4550, Val Acc: 84.59% | LR: 0.000250
+📊 Epoch 038/50 | Train Loss: 0.5418, Train Acc: 81.32% | Val Loss: 0.4637, Val Acc: 84.54% | LR: 0.000250                                                                                                                                                                                                                                                                                    
+📊 Epoch 039/50 | Train Loss: 0.5413, Train Acc: 81.36% | Val Loss: 0.4521, Val Acc: 84.57% | LR: 0.000250                                                                                                                                                                                                                                                                                    
+✅ New best model at epoch 40 (84.72%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 040/50 | Train Loss: 0.5421, Train Acc: 81.13% | Val Loss: 0.4550, Val Acc: 84.72% | LR: 0.000250
+✅ New best model at epoch 41 (84.89%)                                                                                                                                                                                                                                                                                                                                                        
+📊 Epoch 041/50 | Train Loss: 0.5380, Train Acc: 81.32% | Val Loss: 0.4501, Val Acc: 84.89% | LR: 0.000250
+✅ New best model at epoch 42 (85.21%)                                                                                                                                                                                                                                                                                                                                                        
 📊 Epoch 042/50 | Train Loss: 0.5362, Train Acc: 81.50% | Val Loss: 0.4423, Val Acc: 85.21% | LR: 0.000250
 
 🎉 Target accuracy 85.0% reached at epoch 42
+============================================================
+🏆 Best validation accuracy: 85.21% at epoch 42
 ```
 
 ### Key Training Insights:
@@ -423,9 +480,9 @@ The model was successfully trained on Apple Silicon (MPS) and achieved the targe
 - **Final Training Loss**: 0.5362
 - **Final Validation Loss**: 0.4423
 - **Epochs to Target**: 42
-- **Device**: Apple Silicon MPS
+- **Device**: Apple Silicon GPU (MPS) - Trained using PyTorch MPS backend
 - **Training Time**: ~45 minutes
-- **Memory Usage**: ~4GB RAM
+- **Memory Usage**: ~4GB RAM with GPU acceleration
 
 ### Model Efficiency:
 - **Parameters**: 181,942 (< 200K limit) ✅
@@ -531,10 +588,12 @@ The training process generates comprehensive visualizations:
 
 ### Performance Optimization:
 
-1. **For Apple Silicon**:
-   - Use MPS backend
-   - Set num_workers=0
-   - Disable pin_memory
+1. **For Apple Silicon GPU (MPS)**:
+   - Use MPS backend: `torch.device('mps')`
+   - Set num_workers=0 (MPS compatibility requirement)
+   - Disable pin_memory (not supported on MPS)
+   - Ensure PyTorch MPS support: `torch.backends.mps.is_available()`
+   - This model was successfully trained on Apple GPU using MPS
 
 2. **For NVIDIA GPUs**:
    - Use CUDA backend
